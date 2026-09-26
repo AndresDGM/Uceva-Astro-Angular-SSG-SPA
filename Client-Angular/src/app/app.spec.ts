@@ -35,7 +35,9 @@ describe('App', () => {
       navLinks: [
         { text: 'Usuarios', url: '/users' },
         { text: 'Productos', url: '/products' },
+        { text: 'Categorías', url: '/categories' },
         { text: 'Fecha', url: '/date' },
+        { text: 'Órdenes', url: '/orders' },
       ]
     });
   });
@@ -49,6 +51,7 @@ describe('App', () => {
     const navbarComponent = fixture.debugElement
       .query(By.directive(NavbarOrganism))
       .componentInstance;
+
     expect(navbarComponent.navbarConfig).toEqual(component.navbarConfig);
   });
 
@@ -56,5 +59,4 @@ describe('App', () => {
     const routerOutlet = fixture.debugElement.query(By.css('router-outlet'));
     expect(routerOutlet).toBeTruthy();
   });
-
 });
