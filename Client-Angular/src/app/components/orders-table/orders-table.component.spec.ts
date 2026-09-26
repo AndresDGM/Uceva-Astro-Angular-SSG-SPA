@@ -1,41 +1,65 @@
-import { Component, Input } from '@angular/core';
-import { BadgeAtom, BadgeType } from '@brejcha13320/design-system-bootstrap';
-import { Order, OrderStatus } from '../../interfaces/orders.interface';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ORDERS } from '../../data/orders.interface';
+import { OrdersTableComponent } from './orders-table.component';
 
-/**
- * Componente de tabla de órdenes.
- *
- * Se utiliza para mostrar un listado de órdenes en una tabla,
- * mostrando información como cliente, fecha, total, cantidad de
- * productos y un badge visual que indica el estado de cada orden.
- *
- * @remarks
- * Este componente recibe las órdenes desde un componente padre
- * a través del Input `orders` y utiliza el mapeo `statusMap`
- * para asignar tipos de Badge según el estado de cada orden.
- *
- * Forma parte de la capa de presentación de la aplicación y se considera
- * un organismo dentro del sistema de diseño atómico.
- */
-@Component({
-  selector: 'app-orders-table',
-  templateUrl: './orders-table.component.html',
-  imports: [BadgeAtom],
-})
-export class OrdersTableComponent {
-  /**
-   * Listado de órdenes que se mostrarán en la tabla.
-   */
-  @Input() orders: Order[] = [];
+describe('OrdersTableComponent', () => {
+  let component: OrdersTableComponent;
+  let fixture: ComponentFixture<OrdersTableComponent>;
 
-  /**
-   * Mapeo de estados de órdenes a tipos de Badge.
-   */
-  statusMap: Record<OrderStatus, BadgeType> = {
-    'Pendiente': 'warning',
-    'Procesando': 'primary',
-    'Enviado': 'primary',
-    'Entregado': 'success',
-    'Cancelado': 'danger',
-  };
-}
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [OrdersTableComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(OrdersTableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('debería crear el componente', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('debería renderizar una tabla', () => {
+    const table = fixture.debugElement.query(By.css('table'));
+
+    expect(table).toBeTruthy();
+  });
+
+  it('debería renderizar una fila por cada orden', () => {
+    component.orders = ORDERS;
+    fixture.detectChanges();
+
+    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+
+    expect(rows.length).toBe(component.orders.length);
+  });
+
+  it('debería mostrar los datos de la orden en cada columna', () => {
+    component.orders = ORDERS;
+    fixture.detectChanges();
+
+    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+
+    rows.forEach((row, index) => {
+      const columns = row.queryAll(By.css('th, td'));
+      const order = component.orders[index];
+
+      expect(columns[0].nativeElement.textContent.trim()).toBe(String(order.id));
+      expect(columns[1].nativeElement.textContent.trim()).toBe(order.customerName);
+      expect(columns[2].nativeElement.textContent.trim()).toBe(order.date);
+      expect(columns[3].nativeElement.textContent.trim()).toBe(String(order.total));
+      expect(columns[4].nativeElement.textContent.trim()).toBe(String(order.itemCount));
+      expect(columns[5].nativeElement.textContent.trim()).toBe(order.status);
+    });
+  });
+
+  it('debería mapear cada estado a su BadgeType correcto', () => {
+    expect(component.statusMap['Pendiente']).toBe('warning');
+    expect(component.statusMap['Procesando']).toBe('primary');
+    expect(component.statusMap['Enviado']).toBe('primary');
+    expect(component.statusMap['Entregado']).toBe('success');
+    expect(component.statusMap['Cancelado']).toBe('danger');
+  });
+});
