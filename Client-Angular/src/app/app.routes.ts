@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DatePage } from './pages/date/date.page';
 import { ProductsPage } from './pages/products/products.page';
 import { UsersPage } from './pages/users/users.page';
+import { ReviewsPage } from './pages/reviews/reviews.page';
 
 /**
  * Definición de las rutas principales de la aplicación.
@@ -46,6 +47,15 @@ export const routes: Routes = [
    * de mostrar la fecha actual del sistema.
    */
   { path: 'date', component: DatePage },
+
+  /**
+   * Ruta de reseñas.
+   *
+   * @remarks
+   * Renderiza el componente `ReviewsPage`, encargado
+   * de mostrar y gestionar el listado de reseñas.
+   */
+  { path: 'reviews', component: ReviewsPage },
 
   /**
    * Ruta comodín.
