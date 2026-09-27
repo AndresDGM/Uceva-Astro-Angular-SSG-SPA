@@ -37,9 +37,15 @@ describe('App', () => {
         { text: 'Productos', url: '/products' },
         { text: 'Categorías', url: '/categories' },
         { text: 'Fecha', url: '/date' },
+        { text: 'Reviews', url: '/reviews' },
         { text: 'Órdenes', url: '/orders' },
       ]
     });
+  });
+
+  it('debería incluir el enlace de reseñas en la configuración del navbar', () => {
+    const reviewsLink = component.navbarConfig.navLinks.find(link => link.url === '/reviews');
+    expect(reviewsLink).toEqual({ text: 'Reviews', url: '/reviews' });
   });
 
   it('debería renderizar el componente NavbarOrganism', () => {

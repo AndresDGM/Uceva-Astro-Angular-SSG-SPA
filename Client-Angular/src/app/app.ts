@@ -47,6 +47,8 @@ export class App {
    *     { text: 'Productos', url: '/products' },
    *     { text: 'Categorías', url: '/categories' },
    *     { text: 'Fecha', url: '/date' },
+   *     { text: 'Reviews', url: '/reviews' },
+   *     { text: 'Órdenes', url: '/orders' },
    *   ]
    * }
    * ```
@@ -62,6 +64,7 @@ export class App {
       { text: 'Productos', url: '/products' },
       { text: 'Categorías', url: '/categories' },
       { text: 'Fecha', url: '/date' },
+      { text: 'Reviews', url: '/reviews' },
       { text: 'Órdenes', url: '/orders' },
     ]
   };
