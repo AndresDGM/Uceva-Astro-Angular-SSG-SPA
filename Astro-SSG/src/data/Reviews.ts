@@ -1,4 +1,4 @@
-import { Review } from "../interfaces/Reviews";
+import type { Review } from "@interfaces/Reviews";
 
 /**
  * Listado de reseñas del sistema.

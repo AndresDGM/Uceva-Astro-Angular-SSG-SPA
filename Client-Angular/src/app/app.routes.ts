@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
+import { CategoriesPage } from './pages/categories/categories.page';
 import { DatePage } from './pages/date/date.page';
+import { OrdersPage } from './pages/orders/orders.page';
 import { ProductsPage } from './pages/products/products.page';
 import { UsersPage } from './pages/users/users.page';
 import { ReviewsPage } from './pages/reviews/reviews.page';
@@ -56,6 +58,24 @@ export const routes: Routes = [
    * de mostrar y gestionar el listado de reseñas.
    */
   { path: 'reviews', component: ReviewsPage },
+
+  /**
+   * Ruta de categorías.
+   *
+   * @remarks
+   * Renderiza el componente `CategoriesPage`, encargado
+   * de mostrar y gestionar el listado de categorías.
+   */
+  { path: 'categories', component: CategoriesPage },
+
+  /**
+   * Ruta de órdenes.
+   *
+   * @remarks
+   * Renderiza el componente `OrdersPage`, encargado
+   * de mostrar y gestionar el listado de órdenes.
+   */
+  { path: 'orders', component: OrdersPage },
 
   /**
    * Ruta comodín.
