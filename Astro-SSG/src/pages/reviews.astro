@@ -1,0 +1,55 @@
+---
+import { REVIEWS } from "@data/Reviews";
+import type { Review } from "@interfaces/Reviews";
+import MainLayout from "@layouts/MainLayout.astro";
+
+const reviews: Review[] = REVIEWS;
+const stars = [1, 2, 3, 4, 5];
+
+function ratingToStar(rating: number) : string{
+  let span: string = "<span class=\"text-warning\">";
+  stars.forEach((star)=>{
+    if (rating >= star) {
+      span += "<i class=\"bi bi-star-fill\"></i>\n";
+    } else if (rating >= star - 0.5) {
+      span += "<i class=\"bi bi-star-half\"></i>\n";
+    } else {
+      span += "<i class=\"bi bi-star\"></i>\n"
+    }
+  });
+  span += "</span>";
+  return span;
+}
+
+---
+
+<MainLayout>
+  <table class="table table-striped border">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+          <th scope="col">Id del producto</th>
+          <th scope="col">Id del Cliente</th>
+          <th scope="col">Calificacion</th>
+          <th scope="col">Comentario</th>
+          <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      {reviews.map((review) => (
+        <tr>
+          <th scope="row">{ review.id }</th>
+            <td>{ review.productId }</td>
+            <td>{ review.userId }</td>
+            <td class="text-nowrap">
+              <Fragment set:html={ratingToStar(review.rating)}/>
+              <!-- Texto opcional con el valor numérico -->
+              <span class="ms-1 small text-muted">({ review.rating })</span>
+            </td>
+            <td>{ review.comment }</td>
+            <td>{ review.date }</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</MainLayout>
