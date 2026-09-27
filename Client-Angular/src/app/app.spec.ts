@@ -35,9 +35,17 @@ describe('App', () => {
       navLinks: [
         { text: 'Usuarios', url: '/users' },
         { text: 'Productos', url: '/products' },
+        { text: 'Categorías', url: '/categories' },
         { text: 'Fecha', url: '/date' },
+        { text: 'Reviews', url: '/reviews' },
+        { text: 'Órdenes', url: '/orders' },
       ]
     });
+  });
+
+  it('debería incluir el enlace de reseñas en la configuración del navbar', () => {
+    const reviewsLink = component.navbarConfig.navLinks.find(link => link.url === '/reviews');
+    expect(reviewsLink).toEqual({ text: 'Reviews', url: '/reviews' });
   });
 
   it('debería renderizar el componente NavbarOrganism', () => {
@@ -49,6 +57,7 @@ describe('App', () => {
     const navbarComponent = fixture.debugElement
       .query(By.directive(NavbarOrganism))
       .componentInstance;
+
     expect(navbarComponent.navbarConfig).toEqual(component.navbarConfig);
   });
 
@@ -56,5 +65,4 @@ describe('App', () => {
     const routerOutlet = fixture.debugElement.query(By.css('router-outlet'));
     expect(routerOutlet).toBeTruthy();
   });
-
 });

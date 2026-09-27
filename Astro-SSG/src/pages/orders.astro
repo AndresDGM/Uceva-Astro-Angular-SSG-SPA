@@ -1,0 +1,48 @@
+---
+import Badge from "@components/shared/Badge.astro";
+import { ORDERS } from "@data/Orders";
+import type { BadgeType } from "@interfaces/Badge";
+import type { Order, OrderStatus } from "@interfaces/Orders";
+import MainLayout from "@layouts/MainLayout.astro";
+
+const orders: Order[] = ORDERS;
+
+const statusMap: Record<OrderStatus, BadgeType> = {
+  'Pendiente': 'warning',
+  'Procesando': 'primary',
+  'Enviado': 'primary',
+  'Entregado': 'success',
+  'Cancelado': 'danger',
+}
+---
+<MainLayout>
+  <table class="table table-striped border">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Total</th>
+        <th scope="col">Productos</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {orders.map((order) => (
+        <tr>
+          <th scope="row">{order.id}</th>
+          <td>{order.customerName}</td>
+          <td>{order.date}</td>
+          <td>{order.total}</td>
+          <td>{order.itemCount}</td>
+          <td>
+            <Badge
+              text={order.status}
+              type={statusMap[order.status]}
+            />
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</MainLayout>
